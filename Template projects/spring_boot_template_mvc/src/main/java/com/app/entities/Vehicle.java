@@ -1,7 +1,9 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,16 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="vehicle")
-public class Vehicle {
+public class Vehicle extends BaseEntity{
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="vehicle_Id")
-	private int id;
+	
 	
 	@Column(name="vehicle_type")
 	private String type;
@@ -33,19 +33,28 @@ public class Vehicle {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@OneToMany(mappedBy="vehicle", cascade = CascadeType.ALL)
+	private List<Accident> accident;
+
+	public Vehicle(String type, String company, LocalDate regdate, User user, List<Accident> accident) {
+		super();
+		this.type = type;
+		this.company = company;
+		this.regdate = regdate;
+		this.user = user;
+		this.accident = accident;
+	}
+
+	public Vehicle() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {
-		return "Vehicle [id=" + id + ", type=" + type + ", company=" + company + ", regdate=" + regdate + ", user="
-				+ user + "]";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+		return "Vehicle [type=" + type + ", company=" + company + ", regdate=" + regdate + ", user=" + user
+				+ ", accident=" + accident + "]";
 	}
 
 	public String getType() {
@@ -80,19 +89,15 @@ public class Vehicle {
 		this.user = user;
 	}
 
-	public Vehicle(int id, String type, String company, LocalDate regdate, User user) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.company = company;
-		this.regdate = regdate;
-		this.user = user;
+	public List<Accident> getAccident() {
+		return accident;
 	}
 
-	public Vehicle() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setAccident(List<Accident> accident) {
+		this.accident = accident;
 	}
+
+	
 	
 	
 	

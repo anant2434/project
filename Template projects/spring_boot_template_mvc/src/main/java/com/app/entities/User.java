@@ -16,12 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User extends BaseEntity {
 	
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name="user_id")
-    private Long id;
+   
     
     @Column(name="mobile_no", length=30)
     private String mobileNo;
@@ -43,19 +40,6 @@ public class User {
     
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<Policy> policy;
-    
-    
-	public User(Long id, String mobileNo, String address, LocalDate dob, String email, UserRole role,
-			List<Vehicle> vehicle) {
-		super();
-		this.id = id;
-		this.mobileNo = mobileNo;
-		this.address = address;
-		this.dob = dob;
-		this.email = email;
-		this.role = role;
-		this.vehicle = vehicle;
-	}
 
 	public User() {
 		super();
@@ -64,16 +48,20 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", mobileNo=" + mobileNo + ", address=" + address + ", dob=" + dob + ", email="
-				+ email + ", role=" + role + ", vehicle=" + vehicle + "]";
+		return "User [mobileNo=" + mobileNo + ", address=" + address + ", dob=" + dob + ", email=" + email + ", role="
+				+ role + ", vehicle=" + vehicle + ", policy=" + policy + "]";
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public User(String mobileNo, String address, LocalDate dob, String email, UserRole role, List<Vehicle> vehicle,
+			List<Policy> policy) {
+		super();
+		this.mobileNo = mobileNo;
+		this.address = address;
+		this.dob = dob;
+		this.email = email;
+		this.role = role;
+		this.vehicle = vehicle;
+		this.policy = policy;
 	}
 
 	public String getMobileNo() {
@@ -123,6 +111,17 @@ public class User {
 	public void setVehicle(List<Vehicle> vehicle) {
 		this.vehicle = vehicle;
 	}
+
+	public List<Policy> getPolicy() {
+		return policy;
+	}
+
+	public void setPolicy(List<Policy> policy) {
+		this.policy = policy;
+	}
+    
+    
+	
     
     
 	

@@ -15,12 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Bill")
-public class Bill {
+public class Bill extends BaseEntity{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name="pay_id")
-	private Long id;
+	
 	
 	@Column(name="bill_amount", length=30)
 	private Double billAmount;
@@ -31,6 +28,49 @@ public class Bill {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "payment_id")
 	private Payment payment;
+
+	public Bill() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Bill(Double billAmount, LocalDate billDate, Payment payment) {
+		super();
+		this.billAmount = billAmount;
+		this.billDate = billDate;
+		this.payment = payment;
+	}
+
+	@Override
+	public String toString() {
+		return "Bill [billAmount=" + billAmount + ", billDate=" + billDate + ", payment=" + payment + "]";
+	}
+
+	public Double getBillAmount() {
+		return billAmount;
+	}
+
+	public void setBillAmount(Double billAmount) {
+		this.billAmount = billAmount;
+	}
+
+	public LocalDate getBillDate() {
+		return billDate;
+	}
+
+	public void setBillDate(LocalDate billDate) {
+		this.billDate = billDate;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	
+	
 	
 	
 	
