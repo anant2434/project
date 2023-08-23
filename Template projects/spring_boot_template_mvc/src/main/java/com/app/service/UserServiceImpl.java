@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dto.UserResponseDto;
 import com.app.entities.User;
 import com.app.repository.UserEntityRepository;
 

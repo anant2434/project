@@ -6,10 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,8 +20,9 @@ public class Vehicle extends BaseEntity{
 
 	
 	
-	@Column(name="vehicle_type")
-	private String type;
+	@Enumerated(EnumType.STRING)
+    @Column( length=30)
+    private VehicleType type;
 	
 	@Column(name="vehicle_company")
 	private String company;
@@ -30,38 +30,18 @@ public class Vehicle extends BaseEntity{
 	@Column(name="registration_date")
 	private LocalDate regdate;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 	
 	@OneToMany(mappedBy="vehicle", cascade = CascadeType.ALL)
 	private List<Accident> accident;
 
-	public Vehicle(String type, String company, LocalDate regdate, User user, List<Accident> accident) {
-		super();
-		this.type = type;
-		this.company = company;
-		this.regdate = regdate;
-		this.user = user;
-		this.accident = accident;
-	}
-
-	public Vehicle() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "Vehicle [type=" + type + ", company=" + company + ", regdate=" + regdate + ", user=" + user
-				+ ", accident=" + accident + "]";
-	}
-
-	public String getType() {
+	public VehicleType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(VehicleType type) {
 		this.type = type;
 	}
 
@@ -94,6 +74,26 @@ public class Vehicle extends BaseEntity{
 	}
 
 	public void setAccident(List<Accident> accident) {
+		this.accident = accident;
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicle [type=" + type + ", company=" + company + ", regdate=" + regdate + ", user=" + user
+				+ ", accident=" + accident + "]";
+	}
+
+	public Vehicle() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Vehicle(VehicleType type, String company, LocalDate regdate, User user, List<Accident> accident) {
+		super();
+		this.type = type;
+		this.company = company;
+		this.regdate = regdate;
+		this.user = user;
 		this.accident = accident;
 	}
 

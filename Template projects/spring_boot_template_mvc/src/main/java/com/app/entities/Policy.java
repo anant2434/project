@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,33 +31,17 @@ public class Policy extends BaseEntity {
 	@Column(length = 20)
 	private LocalDate validity;
 	
+	@Enumerated(EnumType.STRING)
+    @Column( length=30)
+    private PolicyType policy;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "vehicle_id")
 	private Vehicle vehicle;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
-
-	public Policy(Double amount, LocalDate purchaseDate, LocalDate validity, Vehicle vehicle, User user) {
-		super();
-		this.amount = amount;
-		this.purchaseDate = purchaseDate;
-		this.validity = validity;
-		this.vehicle = vehicle;
-		this.user = user;
-	}
-
-	public Policy() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "Policy [amount=" + amount + ", purchaseDate=" + purchaseDate + ", validity=" + validity + ", vehicle="
-				+ vehicle + ", user=" + user + "]";
-	}
 
 	public Double getAmount() {
 		return amount;
@@ -81,6 +67,14 @@ public class Policy extends BaseEntity {
 		this.validity = validity;
 	}
 
+	public PolicyType getPolicy() {
+		return policy;
+	}
+
+	public void setPolicy(PolicyType policy) {
+		this.policy = policy;
+	}
+
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
@@ -96,6 +90,30 @@ public class Policy extends BaseEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "Policy [amount=" + amount + ", purchaseDate=" + purchaseDate + ", validity=" + validity + ", policy="
+				+ policy + ", vehicle=" + vehicle + ", user=" + user + "]";
+	}
+
+	public Policy() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Policy(Double amount, LocalDate purchaseDate, LocalDate validity, PolicyType policy, Vehicle vehicle,
+			User user) {
+		super();
+		this.amount = amount;
+		this.purchaseDate = purchaseDate;
+		this.validity = validity;
+		this.policy = policy;
+		this.vehicle = vehicle;
+		this.user = user;
+	}
+
+	
 	
 	
 	

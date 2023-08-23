@@ -22,7 +22,7 @@ public class Accident extends BaseEntity{
 	@Column(name="accident_date", length=30)
 	private LocalDate accidentDate;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="vehicle_id")
 	private Vehicle vehicle;
 

@@ -8,9 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,7 +15,11 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User extends BaseEntity {
 	
-   
+    @Column(name="first_name", length =30)
+    private String firstName;
+    
+    @Column(name="last_name", length =30)
+    private String lastName;
     
     @Column(name="mobile_no", length=30)
     private String mobileNo;
@@ -41,27 +42,20 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<Policy> policy;
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getFirstName() {
+		return firstName;
 	}
 
-	@Override
-	public String toString() {
-		return "User [mobileNo=" + mobileNo + ", address=" + address + ", dob=" + dob + ", email=" + email + ", role="
-				+ role + ", vehicle=" + vehicle + ", policy=" + policy + "]";
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public User(String mobileNo, String address, LocalDate dob, String email, UserRole role, List<Vehicle> vehicle,
-			List<Policy> policy) {
-		super();
-		this.mobileNo = mobileNo;
-		this.address = address;
-		this.dob = dob;
-		this.email = email;
-		this.role = role;
-		this.vehicle = vehicle;
-		this.policy = policy;
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getMobileNo() {
@@ -119,11 +113,32 @@ public class User extends BaseEntity {
 	public void setPolicy(List<Policy> policy) {
 		this.policy = policy;
 	}
-    
-    
-	
-    
-    
-	
 
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", mobileNo=" + mobileNo + ", address="
+				+ address + ", dob=" + dob + ", email=" + email + ", role=" + role + ", vehicle=" + vehicle
+				+ ", policy=" + policy + "]";
+	}
+
+	public User(String firstName, String lastName, String mobileNo, String address, LocalDate dob, String email,
+			UserRole role, List<Vehicle> vehicle, List<Policy> policy) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobileNo = mobileNo;
+		this.address = address;
+		this.dob = dob;
+		this.email = email;
+		this.role = role;
+		this.vehicle = vehicle;
+		this.policy = policy;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
 }
