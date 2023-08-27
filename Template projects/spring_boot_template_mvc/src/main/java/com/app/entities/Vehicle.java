@@ -3,7 +3,6 @@ package com.app.entities;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,11 +10,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 @Entity
 @Table(name="vehicle")
+
 public class Vehicle extends BaseEntity{
 
 	
@@ -30,12 +35,16 @@ public class Vehicle extends BaseEntity{
 	@Column(name="registration_date")
 	private LocalDate regdate;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
+	@JsonBackReference
 	private User user;
 	
-	@OneToMany(mappedBy="vehicle", cascade = CascadeType.ALL)
-	private List<Accident> accident;
+//	@JsonIgnore
+//	@OneToMany(mappedBy="vehicle", cascade = CascadeType.ALL)
+//	@JsonManagedReference
+	
+	//private List<Accident> accident;
 
 	public VehicleType getType() {
 		return type;
@@ -69,18 +78,17 @@ public class Vehicle extends BaseEntity{
 		this.user = user;
 	}
 
-	public List<Accident> getAccident() {
-		return accident;
-	}
-
-	public void setAccident(List<Accident> accident) {
-		this.accident = accident;
-	}
+//	public List<Accident> getAccident() {
+//		return accident;
+//	}
+//
+//	public void setAccident(List<Accident> accident) {
+//		this.accident = accident;
+//	}
 
 	@Override
 	public String toString() {
-		return "Vehicle [type=" + type + ", company=" + company + ", regdate=" + regdate + ", user=" + user
-				+ ", accident=" + accident + "]";
+		return "Vehicle [type=" + type + ", company=" + company + ", regdate=" + regdate + ", user="  + "]";
 	}
 
 	public Vehicle() {
@@ -94,7 +102,7 @@ public class Vehicle extends BaseEntity{
 		this.company = company;
 		this.regdate = regdate;
 		this.user = user;
-		this.accident = accident;
+		//this.accident = accident;
 	}
 
 	

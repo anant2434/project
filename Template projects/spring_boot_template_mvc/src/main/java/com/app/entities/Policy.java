@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="policy")
@@ -36,12 +36,14 @@ public class Policy extends BaseEntity {
     private PolicyType policy;
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	@JoinColumn(name = "vehicle_id")
 	private Vehicle vehicle;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private User user;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="user_id")
+//	@JsonBackReference
+//	private User user;
 
 	public Double getAmount() {
 		return amount;
@@ -83,18 +85,18 @@ public class Policy extends BaseEntity {
 		this.vehicle = vehicle;
 	}
 
-	public User getUser() {
-		return user;
-	}
+	//public User getUser() {
+	//	return user;
+//	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	@Override
 	public String toString() {
 		return "Policy [amount=" + amount + ", purchaseDate=" + purchaseDate + ", validity=" + validity + ", policy="
-				+ policy + ", vehicle=" + vehicle + ", user=" + user + "]";
+				+ policy + ", vehicle=" + vehicle + ", user=" + /*user*/  "]";
 	}
 
 	public Policy() {
@@ -110,7 +112,7 @@ public class Policy extends BaseEntity {
 		this.validity = validity;
 		this.policy = policy;
 		this.vehicle = vehicle;
-		this.user = user;
+		//this.user = user;
 	}
 
 	

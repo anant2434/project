@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="payment")
 public class Payment extends BaseEntity {
@@ -25,6 +27,7 @@ public class Payment extends BaseEntity {
     
     @OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Policy_id")
+    @JsonIgnore
 	private Policy policy;
 
 	public Payment() {
