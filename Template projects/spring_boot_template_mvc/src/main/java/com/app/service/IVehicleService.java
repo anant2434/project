@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.util.List;
 
+import com.app.dto.VehicleDto;
 import com.app.entities.Vehicle;
 
 public interface IVehicleService {
@@ -12,5 +13,6 @@ public interface IVehicleService {
 	String deleteVehicleDetails(Long userID);
 	Vehicle updateVehicle(Vehicle updatedVehicle);
 
+	VehicleDto registerNewUser(VehicleDto user);
 
 }

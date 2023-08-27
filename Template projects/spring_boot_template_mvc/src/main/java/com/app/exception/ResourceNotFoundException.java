@@ -6,4 +6,8 @@ public class ResourceNotFoundException extends RuntimeException{
 		super(mesg);
 	}
 
+	public ResourceNotFoundException(String email, String password, int i) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

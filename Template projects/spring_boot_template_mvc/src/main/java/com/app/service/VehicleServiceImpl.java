@@ -1,15 +1,16 @@
 package com.app.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.dto.VehicleDto;
+import com.app.entities.User;
 import com.app.entities.Vehicle;
 import com.app.exception.ResourceNotFound;
-import com.app.entities.Vehicle;
 import com.app.repository.VehicleEntityRepository;
 
 @Service
@@ -18,6 +19,9 @@ public class VehicleServiceImpl  implements IVehicleService{
 
 	@Autowired
 	private VehicleEntityRepository vehiclerepo;
+	
+	@Autowired
+	private ModelMapper mapper;
 	
 	@Override
 	public Vehicle addNewVehicle(Vehicle newVehicle) {
@@ -58,6 +62,13 @@ public class VehicleServiceImpl  implements IVehicleService{
 		}
 		return mesg;
 	}
+	
+	 @Override
+		public VehicleDto registerNewUser(VehicleDto UserResponseDto) {
+			Vehicle user = this.mapper.map(UserResponseDto, Vehicle.class);
+			Vehicle savedUser = this.vehiclerepo.save(user);
+			return this.mapper.map(savedUser, VehicleDto.class);
+		}
 
 	
 

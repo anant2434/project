@@ -104,15 +104,15 @@ return newuser;
 		}
 	    
 
-//		@Override
-//		public UserResponseDto getbyEmailAndPassword(String email, String password) {
-//			 System.out.println(email);
-//			 System.out.println(password);
-//			 User user=this.userepo.findByEmailAndPassword(email, password);
-//			if(user!=null)
-//				return this.mapper.map(user,UserResponseDto.class);
-//			return null;
-//		}
+		@Override
+		public UserResponseDto getbyEmailAndPassword(String email, String password) {
+			 System.out.println(email);
+			 System.out.println(password);
+			 User user=this.userepo.findByEmailAndPassword(email, password);
+			if(user!=null)
+				return this.mapper.map(user,UserResponseDto.class);
+			return null;
+		}
 
 
 }

@@ -21,7 +21,7 @@ public interface IUserService {
 	User getCourseById(Long Id);
 
 
-	//UserResponseDto getbyEmailAndPassword(String email, String password);
+	UserResponseDto getbyEmailAndPassword(String email, String password);
 
 	UserResponseDto updateUser(UserResponseDto UserResponseDto, Long userId);
 
