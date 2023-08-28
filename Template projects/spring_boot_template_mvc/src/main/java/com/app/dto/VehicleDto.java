@@ -21,8 +21,8 @@ import lombok.Setter;
 @Setter
 public class VehicleDto {
 	
-	@Column(length = 30)
-	private Long id;
+	//@Column(length = 30)
+    //private Long id;
 	
 	@Column(unique = true)
 	@Enumerated(EnumType.STRING)
@@ -39,8 +39,8 @@ public class VehicleDto {
 	
 	private LocalDate regdate;
 	
-	//@Column(name ="userId",length = 30)
-	//private User user;
+	@Column
+	private Long userId;
 	
 	
 	

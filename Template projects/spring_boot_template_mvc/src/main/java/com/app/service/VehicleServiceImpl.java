@@ -23,6 +23,9 @@ public class VehicleServiceImpl  implements IVehicleService{
 	@Autowired
 	private ModelMapper mapper;
 	
+	@Autowired 
+	private IUserService userimp;
+	
 	@Override
 	public Vehicle addNewVehicle(Vehicle newVehicle) {
 	return vehiclerepo.save(newVehicle);
@@ -70,7 +73,25 @@ public class VehicleServiceImpl  implements IVehicleService{
 			return this.mapper.map(savedUser, VehicleDto.class);
 		}
 
-	
+	 
+	 
+//	 @Override
+//		public Vehicle addCourse(Vehicle newcourse) {
+//			return vehiclerepo.save(newcourse);
+//		}
+//	
+	 
+	 @Override
+		public Vehicle addStudent(VehicleDto newstudent) {
+			
+			Vehicle stud=mapper.map(newstudent,Vehicle.class);
+			
+			User course=userimp.getCourseById(newstudent.getUserId());
+			
+			stud.setUser(course);
+			
+			return vehiclerepo.save(stud);
+		}
 
 
 }

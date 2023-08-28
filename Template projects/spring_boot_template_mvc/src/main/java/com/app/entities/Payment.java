@@ -27,7 +27,7 @@ public class Payment extends BaseEntity {
     
     @OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Policy_id")
-    @JsonIgnore
+    //@JsonIgnore
 	private Policy policy;
 
 	public Payment() {
