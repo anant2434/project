@@ -23,10 +23,10 @@ public class Accident extends BaseEntity{
 	@Column(name="accident_date", length=30)
 	private LocalDate accidentDate;
 	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JsonBackReference
-//	@JoinColumn(name="vehicle_id")
-    //private Vehicle vehicle;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonBackReference
+	@JoinColumn(name="vehicle_id")
+    private Vehicle vehicle;
 
 	public Accident() {
 		super();

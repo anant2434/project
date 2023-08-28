@@ -2,11 +2,14 @@ package com.app.service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.dto.PaymentDto;
 import com.app.entities.Payment;
+import com.app.entities.Policy;
 import com.app.exception.ResourceNotFound;
 import com.app.repository.PaymentEntityRepository;
 
@@ -16,6 +19,12 @@ public class PaymentServiceImpl implements IPaymentService{
 	
 	@Autowired
 	private PaymentEntityRepository Paymentrepo;
+	
+	@Autowired
+	 private ModelMapper mapper;
+	
+	@Autowired
+	private IPolicyService serviceimp;
 	
 	@Override
 	public Payment addNewPayment(Payment newPayment) {
@@ -54,6 +63,17 @@ public class PaymentServiceImpl implements IPaymentService{
 			mesg = "User with ID=" + userID + "  deleted !";
 		}
 		return mesg;
+	}
+	@Override
+	public Payment addStudent(PaymentDto newstudent) {
+		
+		Payment stud=mapper.map(newstudent,Payment.class);
+		
+		Policy course=serviceimp.getPolicyById(newstudent.getPolicyId());
+		
+		stud.setPolicy(course);
+		
+		return Paymentrepo.save(stud);
 	}
 
 }

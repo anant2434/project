@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.PaymentDto;
 import com.app.entities.Payment;
 import com.app.service.IPaymentService;
 @RestController
@@ -36,10 +37,10 @@ public class PaymentController {
 		return Paymentservice.getPaymentById(vid);
 	}
 	
-	@PostMapping
-	public Payment addPayment(@RequestBody Payment newPayment) {
-		return Paymentservice.addNewPayment(newPayment);
-	}
+//	@PostMapping
+//	public Payment addPayment(@RequestBody Payment newPayment) {
+//		return Paymentservice.addNewPayment(newPayment);
+//	}
 	
 	@DeleteMapping("/{vid}")
 	public String deletePayment(@PathVariable Long vid) {
@@ -50,5 +51,11 @@ public class PaymentController {
 	public Payment updatePayment(@RequestBody @Valid Payment updPayment) {
 		return Paymentservice.updatePayment(updPayment);
 	}
+	
+	@PostMapping("/add")
+	public Payment addStudent(@RequestBody PaymentDto stud) {
+		return Paymentservice.addStudent(stud);
+	}
 
 }
+

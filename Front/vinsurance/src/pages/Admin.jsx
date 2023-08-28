@@ -6,7 +6,7 @@ const Admin = () => {
       <table>
         <tr>
             <td>
-                <tr><Link to="/addpolicy">Add Policy</Link></tr>
+                
                 <tr><Link to="/getuser">Users</Link></tr>
             </td>
         </tr>

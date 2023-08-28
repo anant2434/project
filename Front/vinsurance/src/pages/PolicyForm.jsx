@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useState } from 'react';
+
 const PolicyForm = (ptype) => {
     console.log(ptype.type);
 
@@ -31,6 +33,37 @@ const PolicyForm = (ptype) => {
     const navigate = useNavigate();
     const amt = calculateAmount();
     console.log(amt)
+
+    const [paymentMode, setPaymentMode] = useState("DEBIT CARD"); // Default value
+
+    const handlePaymentModeChange = (e) => {
+        setPaymentMode(e.target.value);
+    };
+    
+    const handlePayment = () => {
+        const pid = localStorage.getItem('policyId')
+        // Prepare data for the POST request
+        const paymentData = {
+            policyId: pid,
+            mode: paymentMode,
+            amount: amt
+        };
+
+        // Send the payment data to the backend using Axios
+        axios.post('http://localhost:8080/payment/add', paymentData) // Replace with your actual API endpoint
+            .then((response) => {
+                console.log('Payment successful', response.data);
+                // Perform further actions, such as showing a success message.
+                navigate('/booked')
+            })
+            .catch((error) => {
+                console.error('Error making payment', error);
+                // Handle errors, such as displaying an error message to the user.
+            });
+
+            
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -49,12 +82,14 @@ const PolicyForm = (ptype) => {
             .then((response) => {
                 console.log('Policy bought successfully', response.data);
                 // Perform further actions, such as redirecting the user or showing a success message.
-                navigate('/booked');
+                localStorage.setItem('policyId',response.data.id)
             })
             .catch((error) => {
                 console.error('Error buying policy', error);
                 // Handle errors, such as displaying an error message to the user.
             });
+            handlePayment();
+            
     };
     return (
         <div>
@@ -73,6 +108,34 @@ const PolicyForm = (ptype) => {
                 <Form.Group className="mb-3" controlId="amount">
                     <Form.Label>Policy amount</Form.Label>
                     <Form.Control type="number" placeholder={calculateAmount()} defaultValue={calculateAmount()} readOnly />
+                </Form.Group>
+
+                 <Form.Group className="mb-3" controlId="payment-mode">
+                    <Form.Label>Payment Mode</Form.Label>
+                    <Form.Check
+                        type="radio"
+                        label="DEBIT CARD"
+                        name="paymentMode"
+                        value="DEBIT CARD"
+                        checked={paymentMode === "DEBIT CARD"}
+                        onChange={handlePaymentModeChange}
+                    />
+                    <Form.Check
+                        type="radio"
+                        label="UPI"
+                        name="paymentMode"
+                        value="UPI"
+                        checked={paymentMode === "UPI"}
+                        onChange={handlePaymentModeChange}
+                    />
+                    <Form.Check
+                        type="radio"
+                        label="CREDIT CARD"
+                        name="paymentMode"
+                        value="CREDIT CARD"
+                        checked={paymentMode === "CREDIT CARD"}
+                        onChange={handlePaymentModeChange}
+                    />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">

@@ -6,7 +6,7 @@ import Admin from '../pages/Admin'
 import Vehicle from '../pages/Vehicle'
 import Policy from '../pages/Policy'
 import Booked from '../pages/Booked'
-import Addpolicy from '../components/Admin/Addpolicy'
+
 import Getuser from '../components/Admin/Getuser'
 
 const Routers = () => {
@@ -18,7 +18,7 @@ const Routers = () => {
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/vehicle' element={<Vehicle/>}/>
         <Route path='/policy' element={<Policy/>}/>
-        <Route path='/addpolicy' element={<Addpolicy/>}/>
+        
         <Route path='/getuser' element={<Getuser/>}/>
         <Route path='/booked' element={<Booked/>}/>
     </Routes>
